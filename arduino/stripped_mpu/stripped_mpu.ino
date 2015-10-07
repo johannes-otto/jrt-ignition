@@ -35,7 +35,7 @@ void setup() {
   Wire.begin();
   TWBR = 24;
 
-  Serial.begin(115200);
+  Serial.begin(230400);
   mpu.initialize();
   devStatus = mpu.dmpInitialize();
 
@@ -68,12 +68,12 @@ void loop() {
     while (fifoCount < packetSize) fifoCount = mpu.getFIFOCount();
     mpu.getFIFOBytes(fifoBuffer, packetSize);
     fifoCount -= packetSize;
+    mpu.dmpGetQuaternion(&q, fifoBuffer);
+    mpu.dmpGetGravity(&gravity, &q);
+    mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
 
     if (Serial.available()) {
       while (Serial.available() && Serial.read());
-      mpu.dmpGetQuaternion(&q, fifoBuffer);
-      mpu.dmpGetGravity(&gravity, &q);
-      mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
       Serial.print(ypr[0] * 180 / M_PI);
       Serial.print("\t");
       Serial.print(ypr[1] * 180 / M_PI);

@@ -33,7 +33,7 @@ class JrtControl(object):
 	bmp180=BMP180('Y')
 	max31885=MAX31885(CS_pin='X7',SO_pin='X8',SCK_pin='X6')
 	uart=UART(1)
-	uart.init(115200)
+	uart.init(230400)
 	v=0
 	P_a=0
 	P_h=0
@@ -80,8 +80,7 @@ class JrtControl(object):
 		yaw,pitch,roll=self.read_arduino()
 		m=105+90
 		g=9.81
-		#print(yaw,pitch,roll)
-		#print(sin(roll*pi/180),roll)
+
 		self.P_h=m*g*sin(roll*pi/180)*velocity/3.6*(wheel_time+d_wheel_time)/1000000
 		#print(P_h)
 		if 0<velocity<150:

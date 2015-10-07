@@ -22,9 +22,11 @@ class IgnitionSystem(object):
   def __init__(self):
     with open('data/ignition_table.txt','r') as data_file:
       data=data_file.read().split('\n')
-
-    self.ignition_table=list(map(lambda x: int(x),data))
-
+	print(data)
+	try:
+    	self.ignition_table=list(map(lambda x: int(x),data))
+	except:
+		print(data)
     current_rpm_index= lambda x: int(750000/x)
     self.ign_delay=lambda t_round: self.ignition_table[current_rpm_index(t_round)]
     self.emergency_ignition_delay=sum(self.ignition_table)/len(self.ignition_table)
