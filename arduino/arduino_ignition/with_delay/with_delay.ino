@@ -12,8 +12,11 @@ void setup() {
 }
 
 void ignite() {
-  digitalWrite(ignition, HIGH);
-  delay(2);
+  //delay(2);
+  if (digitalRead(interruptor) == HIGH) {
+    digitalWrite(ignition, HIGH);
+    delay(2);
+  }
 }
 void loop() {
   // put your main code here, to run repeatedly:
