@@ -1,4 +1,4 @@
-offset=40 #vor ot
+offset=45 #vor ot
 def_ignition=26.292
 
 rpm_points=1000,2000,3000,4000,5000,6000,7000
